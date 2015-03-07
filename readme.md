@@ -1,5 +1,5 @@
 What about ?
-AUTO JIRA Wordpress plugin let you install any JIRA issue tracker to your website.
+WP - Jira Issue Collector Wordpress plugin let you install any JIRA issue tracker to your website.
 
 How to install ?
 Just download & upload the .zip file into the wordpress plugin installer, or unzip and drop the .zip contents into wp-content/plugins.
