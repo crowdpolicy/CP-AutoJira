@@ -10,76 +10,77 @@
 
 
 
- //ADD CSS AND JS
-function jirector_scripts() {
-	wp_register_style( 'irector_css',  plugin_dir_url( __FILE__ ) . 'css/style.css' );
-  	wp_enqueue_style( 'jirector_css' );
-  	//wp_enqueue_script( 'jirector_js', plugin_dir_url( __FILE__ ) . 'js/jirector.js', array('jquery'), true );
-  }
-add_action( 'wp_enqueue_scripts', 'jirector_scripts' );
+	//Register CSS and JS files
+	function jirector_scripts() {
+		wp_register_style( 'irector_css',  plugin_dir_url( __FILE__ ) . 'css/style.css' );
+	  	wp_enqueue_style( 'jirector_css' );
 
-//HOOK JIRA SCRIPT AT HEAD
-$theJurl1 = get_option('url_option_field');
-function insert_jirector() {
+	  	/* No need for any JS file for the moment */
+	  	//wp_enqueue_script( 'jirector_js', plugin_dir_url( __FILE__ ) . 'js/jirector.js', array('jquery'), true );
+	  }
+	add_action( 'wp_enqueue_scripts', 'jirector_scripts' );
 
-	$traw = '<script type="text/javascript">jQuery.ajax({';
-    $traw .= 'url: "'.get_option('url_option_field').'",';
-	$traw .= 'type: "get",';
-	$traw .= 'cache: true,';
-	$traw .= 'dataType: "script"';
-	$traw .= '});';
-	$traw .= '</script>';
+	//Hook Jira jQuery option on <head>
+	$theJurl1 = get_option('url_option_field');
+	function insert_jirector() {
 
-	echo $traw;
+		$traw = '<script type="text/javascript">jQuery.ajax({';
+	    $traw .= 'url: "'.get_option('url_option_field').'",';
+		$traw .= 'type: "get",';
+		$traw .= 'cache: true,';
+		$traw .= 'dataType: "script"';
+		$traw .= '});';
+		$traw .= '</script>';
 
-}
-add_action('wp_head', 'insert_jirector'); //Hook on head
+		echo $traw;
 
-?>
-<?php
-// create custom plugin settings menu
-add_action('admin_menu', 'jirector_menu');
+	}
+	add_action('wp_head', 'insert_jirector'); //Hook on head
 
-function jirector_menu() {
+	?>
+	<?php
+	// jirector settings menu
+	add_action('admin_menu', 'jirector_menu');
 
-	//create new top-level menu
-	add_menu_page('CP Jira Issue Collector Settings', 'CP-WPJIRA', 'administrator', __FILE__, 'jirector_settings_page');
+	function jirector_menu() {
 
-	//call register settings function
-	add_action( 'admin_init', 'register_mysettings' );
-}
+		//top-level menu
+		add_menu_page('Jira Issue Collector', 'CP-WPJIRA', 'administrator', __FILE__, 'jirector_settings_page');
 
-
-function register_mysettings() {
-	//register our settings
-	register_setting( 'jirector-settings-group', 'url_option_field' );
-
-    $filePath = plugins_url( 'css/style.css', __FILE__);
-    add_editor_style($filePath);
-}
-
-function jirector_settings_page() {
+		//call register jirector_settings function
+		add_action( 'admin_init', 'jirector_settings' );
+	}
 
 
-?>
-<div class="wrap">
-<h2>CP Jira Issue Collector Settings</h2>
+	function jirector_settings() {
+		//register
+		register_setting( 'jirector-settings-group', 'url_option_field' );
 
-<form method="post" action="options.php">
-    <?php settings_fields( 'jirector-settings-group' ); ?>
-    <?php do_settings_sections( 'jirector-settings-group' ); ?>
-    <table class="form-table">
-        <tr valign="top">
-        <th scope="row">Issue Collector Unique URL</th>
-        <td><input type="text" name="url_option_field" value="<?php echo esc_attr( get_option('url_option_field') ); ?>" /></td>
-        </tr>
+	    $filePath = plugins_url( 'css/style.css', __FILE__);
+	    add_editor_style($filePath);
+	}
 
-    </table>
-	<div>Your Current URL is ==> <?php echo get_option('url_option_field'); ?></div>
+	function jirector_settings_page() {
 
-    <?php
-	    submit_button(); ?>
+	?>
+		<div class="wrap">
+			<h2>CP Jira Issue Collector Settings</h2>
 
-</form>
-</div>
+			<form method="post" action="options.php">
+			    <?php settings_fields( 'jirector-settings-group' ); ?>
+			    <?php do_settings_sections( 'jirector-settings-group' ); ?>
+			    <table class="form-table">
+			        <tr valign="top">
+			        <th scope="row">Issue Collector Unique URL</th>
+			        <td><input type="text" name="url_option_field" value="<?php echo esc_attr( get_option('url_option_field') ); ?>" /></td>
+			        </tr>
+
+			    </table>
+				<div>Your Current URL is ==> <?php echo get_option('url_option_field'); ?></div>
+
+			    <?php
+				    submit_button(); ?>
+
+			</form>
+		</div>
 <?php } ?>
