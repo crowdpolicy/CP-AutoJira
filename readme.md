@@ -1,4 +1,4 @@
-WP - Jira Issue Collector let you install any JIRA issue tracker to your wordpress based website
+WP - Jira Issue Collector let you install any JIRA issue collector to your wordpress based website
 
 How to install ?
 Just download & upload the .zip file into the wordpress plugin installer, or unzip and drop the .zip contents into wp-content/plugins.
