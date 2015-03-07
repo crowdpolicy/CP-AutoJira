@@ -21,7 +21,6 @@ add_action( 'wp_enqueue_scripts', 'jirector_scripts' );
 //HOOK JIRA SCRIPT AT HEAD
 $theJurl1 = get_option('url_option_field');
 function insert_jirector() {
-	$theJurl = 'https://crowdpolicy.atlassian.net/s/79a750e65c866d8541ee47b02c3e4c8e-T/en_US-l4sgok/64014/69/1.4.24/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector-embededjs/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector-embededjs.js?locale=en-US&collectorId=6ccb3420';
 
 	$traw = '<script type="text/javascript">jQuery.ajax({';
     $traw .= 'url: "'.get_option('url_option_field').'",';
