@@ -1,7 +1,7 @@
 <?php
     /*
     Plugin Name: WP - Jira Issue Collector
-    Plugin URI: http://crowdpolicy.com
+    Plugin URI: https://github.com/crowdpolicy/CP-AutoJira
     Description: Insert JIRA HELPDESC INTEGRATION
     Author: Crowdpolicy by Margarit Koka
     Version: 0.2
