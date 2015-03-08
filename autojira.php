@@ -21,7 +21,6 @@
 	add_action( 'wp_enqueue_scripts', 'jirector_scripts' );
 
 	//Hook Jira jQuery option on <head>
-	$theJurl1 = get_option('url_option_field');
 	function insert_jirector() {
 
 		$traw = '<script type="text/javascript">jQuery.ajax({';
@@ -56,12 +55,13 @@
 		//register
 		register_setting( 'jirector-settings-group', 'url_option_field' );
 
+
 	    $filePath = plugins_url( 'css/style.css', __FILE__);
 	    add_editor_style($filePath);
 	}
 
 	function jirector_settings_page() {
-
+		$theJurl = get_option('url_option_field');
 	?>
 		<div class="wrap">
 			<h2>CP Jira Issue Collector Settings</h2>
@@ -76,8 +76,9 @@
 			        </tr>
 
 			    </table>
-				<div>Your Current URL is ==> <?php echo get_option('url_option_field'); ?></div>
-
+			    <?php if ($theJurl  == !''): ?>
+					<div>Your Current URL is ==> <?php echo get_option('url_option_field'); ?></div>
+				<?php endif; ?>
 			    <?php
 				    submit_button(); ?>
 
